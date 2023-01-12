@@ -5,6 +5,7 @@
 
 using namespace std;
 
+ 
 //задание 1
 const int H = 10;
 const int N = 10;
@@ -25,15 +26,103 @@ void sortPancake();  // для переворачивания стопки
 void maxPancakeDown(int i);
 void Panc();
 
+void Create(int arr[]) {
+    const int a = 1000;
+   
+    for (int i = 0; i < a; i++){
+        arr[i] = rand() % 100;
+    }
+   /* for (int i = 0; i < a; i++)
+    {
+        cout << arr[i] << " ";
+    }
+    cout << endl;*/
+}
+int buble(int arr[]) {
+    int temp;
+    int count = 0;
+    int sum = 0;
+    for (int i = 0; i < 1000; i++) {
+        count = 0;
+        for (int j = 0; j < 1000 - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+                count++;
+            }
+        }
+        if (count == 0) {
+            sum += i;
+           // cout << "Сортировка закончилась на ";
+           // cout << i << " шаге\n";
+           
+            break;
+        }
+    }
+   /* for (int i = 0; i < 1000; i++) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;*/
+    return sum;
+}
+int input(int arr[]) {
+    int i, j, k;
+    int temp;
+    int count = 0;
+    int sum1 = 0;
+    for (i = 0; i < 1000; i++) {
+        k = i;
+        temp = arr[i];
+        count = 0;
+        for (j = 1 + i; j < 1000; j++) {
+            if (arr[j] < temp) {
+                k = j;
+                temp = arr[j];
+                count++;
+            }
+        }
+        if (k != i) {
+            arr[k] = arr[i];
+            arr[i] = temp;
+        }
+        if (count == 0) {
+            sum1 += i;
+            //cout << "Сортировка закончилась на ";
+            //cout << i << " шаге\n";
+            break;
+        }
+    }
+   /* for (int i = 0; i < 1000; i++) {
+        cout << arr[i] << " ";
+    }*/
+    return sum1;
+}
+
+
+
 int main()
 {
     setlocale(LC_ALL,"");
+    srand(time(NULL));
   //Sort();
   //Buble();
   //Panc();
-  //2задание нифига не получается как и 4(((
     
-    
+    int arr[1000];
+    int count1 = 0;
+    int count2 = 0;
+   
+    for (int i = 0; i < 10; i++){
+       // cout << endl;
+        Create(arr);
+        count1+=buble(arr);
+        Create(arr);
+        count2+=input(arr);
+    }
+    //cout << endl;
+    cout <<"Кол-во для пузырька " << count1 <<" Ср.кол= "<< count1/10<< endl;
+    cout <<"Кол-во для сорт выбора " << count2<<" Ср.кол= "<<count2/10;
 }
 void Reinit(int arr1[], int arr2[]) {
    
@@ -152,32 +241,35 @@ void Panc() {
 }
 
 void Buble() {
-    const int SIZE1 = 10;
-    int arr[SIZE1], temp, counter;
+    const int size = 10;
+    int arr[size];
+    int temp;
+    int count = 0;
     cout << "Введите элементы массива:\n";
-    for (int i = 0; i < SIZE1; i++) {
+    for (int i = 0; i < size; i++) {
         cin >> arr[i];
     }
     cout << endl;
-    for (int i = 1; i < SIZE1; i++) {
-        counter = 0;
-        for (int j = 0; j < SIZE1 - i; j++) {
+    for (int i = 0; i < size; i++) {
+        count = 0;
+        for (int j = 0; j < size - 1; j++) {
             if (arr[j] > arr[j + 1]) {
                 temp = arr[j];
                 arr[j] = arr[j + 1];
                 arr[j + 1] = temp;
-                counter++;
+                count++;
             }
         }
-        cout << i<<" "<<endl;
-        if (counter == 0) {
-            cout << "Cортировкa завершилась на ";
-            cout << i-1 << " шаге\n";
+        if (count == 0)
+        {
+            cout << "Сортировка закончилась на ";
+            cout << i << " шаге\n";
             break;
         }
-        
     }
-    for (int i = 0; i < SIZE1; i++) {
+    for (int i = 0; i < size; i++)
+    {
         cout << arr[i] << " ";
     }
+    cout << endl;
 }
